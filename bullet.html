@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Maç Bahis</title>
+  </head>
+  <body>
+    <h2>İki Takım Arasında Maç Yapacağız.</h2>
+    <h3>Ana Paramız 1000 TL</h3>
+    <p>Oyun Kim 5 olursa bitecek</p>
+    <img id="resim" src="" width="300px" height="300px" alt="sonuc" />
+    <p id="bahisOranlari"></p>
+    <p id="skor"></p>
+
+    <script>
+      // Oranları göster
+      const bahisOranlariFb = (Math.random() * 10).toFixed(2);
+      const bahisOranlariGs = (Math.random() * 10).toFixed(2);
+      document.getElementById(
+        "bahisOranlari"
+      ).innerHTML = `Bahis Oranları - Fenerbahçe: ${bahisOranlariFb} | Galatasaray: ${bahisOranlariGs}`;
+
+      let sayacGS = 0,
+        sayacFB = 0;
+      let secilenTakim = null;
+
+      function takimSec() {
+        const secim = prompt(
+          "Hangi Takıma Bahis Yapmak İstersiniz? (Fenerbahçe/Galatasaray)"
+        );
+        if (!secim) return;
+        const s = secim.trim().toLowerCase();
+        if (s === "fenerbahçe" || s === "fb") secilenTakim = "FB";
+        else if (s === "galatasaray" || s === "gs") secilenTakim = "GS";
+        else {
+          alert("Yanlış seçim, tekrar deneyin.");
+          return takimSec();
+        }
+        alert(
+          secilenTakim === "FB" ? "Fenerbahçe seçildi." : "Galatasaray seçildi."
+        );
+      }
+      takimSec();
+
+      while (sayacGS < 5 && sayacFB < 5) {
+        sayacGS += Math.floor(Math.random() * 2);
+        sayacFB += Math.floor(Math.random() * 2);
+        document.getElementById(
+          "skor"
+        ).innerText = `Skor: GS ${sayacGS} - FB ${sayacFB}`;
+      }
+
+      const kazanan = sayacGS >= 5 ? "GS" : "FB";
+      alert(kazanan === "GS" ? "Galatasaray kazandı." : "Fenerbahçe kazandı.");
+
+      if (secilenTakim === kazanan) {
+        document.getElementById("resim").src = "zengin.png";
+      } else {
+        document.getElementById("resim").src = "bos.jpg";
+      }
+    </script>
+  </body>
+</html>
